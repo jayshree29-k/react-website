@@ -10,21 +10,21 @@ import user4 from '../../assets/user-4.png'
 const Testimonals = () => {
 
     const slider = useRef();
-    let tx = 0;
+    const tx = useRef(0);   // ✅ FIXED
 
     const slideForward = () => {
-        if (tx > -50) {
-            tx -= 25;
-            slider.current.style.transform = `translateX(${tx}%)`;
-        }
-    }
-    const slideBackward = () => {
-        if (tx < 0) {
-            tx += 25;
-            slider.current.style.transform = `translateX(${tx}%)`;
+        if (tx.current > -75) {   // because 4 slides now
+            tx.current -= 25;
+            slider.current.style.transform = `translateX(${tx.current}%)`;
         }
     }
 
+    const slideBackward = () => {
+        if (tx.current < 0) {
+            tx.current += 25;
+            slider.current.style.transform = `translateX(${tx.current}%)`;
+        }
+    }
 
     return (
         <div className='testimonals' id='testimonials'>
@@ -33,59 +33,27 @@ const Testimonals = () => {
 
             <div className="slider">
                 <ul ref={slider}>
-                    <li>
-                        <div className="slide">
-                            <div className="user-info">
-                                <img src={user1} alt="user" />
-                                <div className="user-details">
-                                    <h3>William jackson</h3>
-                                    <p>Edustry, USA</p>
+                    {[user1, user2, user3, user4].map((user, i) => (
+                        <li key={i}>
+                            <div className="slide">
+                                <div className="user-info">
+                                    <img src={user} alt="user" />
+                                    <div className="user-details">
+                                        <h3>William Jackson</h3>
+                                        <p>Edustry, USA</p>
+                                    </div>
                                 </div>
+                                <p>
+                                    Choosing the right degree is a pivotal demand to ensure long-term career
+                                    satisfaction and financial stability.
+                                </p>
                             </div>
-                            <p>Choosing the right degree is a pivotal,  demand to ensure long-term career satisfaction and financial stability. It requires thorough research into industry trends, academic program structures, and potential return on investment (ROI). </p>
-                        </div>
-                    </li>
-                    <li>
-                        <div className="slide">
-                            <div className="user-info">
-                                <img src={user2} alt="user" />
-                                <div className="user-details">
-                                    <h3>William jackson</h3>
-                                    <p>Edustry, USA</p>
-                                </div>
-                            </div>
-                            <p>Choosing the right degree is a pivotal,  demand to ensure long-term career satisfaction and financial stability. It requires thorough research into industry trends, academic program structures, and potential return on investment (ROI). </p>
-                        </div>
-                    </li>
-                    <li>
-                        <div className="slide">
-                            <div className="user-info">
-                                <img src={user3} alt="user" />
-                                <div className="user-details">
-                                    <h3>William jackson</h3>
-                                    <p>Edustry, USA</p>
-                                </div>
-                            </div>
-                            <p>Choosing the right degree is a pivotal,  demand to ensure long-term career satisfaction and financial stability. It requires thorough research into industry trends, academic program structures, and potential return on investment (ROI). </p>
-                        </div>
-                    </li>
-                    <li>
-                        <div className="slide">
-                            <div className="user-info">
-                                <img src={user4} alt="user" />
-                                <div className="user-details">
-                                    <h3>William jackson</h3>
-                                    <p>Edustry, USA</p>
-                                </div>
-                            </div>
-                            <p>Choosing the right degree is a pivotal,  demand to ensure long-term career satisfaction and financial stability. It requires thorough research into industry trends, academic program structures, and potential return on investment (ROI). </p>
-                        </div>
-                    </li>
+                        </li>
+                    ))}
                 </ul>
             </div>
-
         </div>
     )
 }
 
-export default Testimonals
+export default Testimonals;
